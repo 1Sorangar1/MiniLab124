@@ -6,13 +6,10 @@ const formValidation = {}  // Сюда пишутся статусы валид�
 // Объявляется и инициализируется константная переменная
 // Инициализация функцией, заданной в стрелочном виде
 export const validatePassword = (e) => {
-  formValidation.password = e.target.value
-  console.log("Password validation...")
-  console.log(e)
-  // Напишите код валидации здесь и присвойте true/false в объект(словарь) formValidation
-  // formValidation.password = ...  // formValidation['password'] = ... - то же самое, но другой синтаксис
-  return formValidation.password !== undefined   // Это заглушка, return вероятно надо переписать
-}
+  const regExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!\"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~])(?=.{10,}).*$/;
+  return regExp.test(e);
+};
+
 
 
 export const validateEmail = (email) => {
@@ -37,11 +34,25 @@ export const getValidationStatus = () => {
 
 // Функция возвращающая которая ставит значение поля в форме по ключу
 export const setFormValue = (valueKey, newValue, validator) => {
-  formValues[valueKey] = newValue
+  formValues[valueKey] = newValue;
+
   if (validator !== undefined) {
-    formValidation[valueKey] = validator(newValue)
+    const isValid = validator(newValue);
+    formValidation[valueKey] = isValid;
+
+    // Найдём элемент на странице по ID и обновим классы
+    const inputElement = document.getElementById(valueKey);
+    if (inputElement) {
+      if (isValid) {
+        inputElement.classList.add('valid');
+        inputElement.classList.remove('invalid');
+      } else {
+        inputElement.classList.add('invalid');
+        inputElement.classList.remove('valid');
+      }
+    }
   }
-}
+};
 
 
 // Функция для обработки отправки формы регистрации
