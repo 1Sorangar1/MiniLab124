@@ -1,4 +1,4 @@
-import {setFormValue, submitSignUpForm, submitSignInForm, validateEmail, validatePassword, getValidationStatus, validatePasswordMatch} from "./utils.js"
+import {setFormValue, submitSignUpForm, submitSignInForm, validateEmail, validatePassword, validatePasswordRepeat, validateNotEmpty} from "./utils.js"
 
 
 ////// ДЕМОНСТРАЦИОННЫЙ УЧАСТОК КОДА. На оценку не влияет, исключительно для саморазвития.
@@ -36,104 +36,64 @@ console.log(document)
 // const password_id = 'password'
 // const email_id = 'email'
 
-const sign_in_link_id = 'sign_in_link'
-const sign_up_form_id = 'sign_up_form'
-const sign_in_btn_id = 'sign_in_btn'
-const sign_up_btn_id = 'sign_up_btn'
-const sign_in_form_id = 'sign_in_form'
-const sign_up_link_id = 'sign_up_link'
+const first_name_id = 'first_name';
+const last_name_id = 'last_name';
+const password_id = 'password';
+const password_id_repeat = 'password-repeat';
+const email_id = 'email';
+const sign_in = "sign_in"
+const sign_up = "sign_up"
 
+const sign_in_link_id = 'sign_in_link';
+const sign_up_link_id = 'sign_up_link';
+const sign_up_form_id = 'sign_up_form';
+const sign_in_form_id = 'sign_in_form';
+const sign_up_btn_id = 'sign_up_btn';
+const sign_in_btn_id = 'sign_in_btn';
+
+const emailLogin = document.getElementById('email-login');
+emailLogin.oninput = (e) => setFormValue('email-login', e.target.value, validateEmail, sign_in);
+
+const passwordLogin = document.getElementById('password-login');
+passwordLogin.oninput = (e) => setFormValue('password-login', e.target.value, validatePassword, sign_in);
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const first_name = document.getElementById(first_name_id);
+  const last_name = document.getElementById(last_name_id);
+  const email = document.getElementById(email_id);
+  const password = document.getElementById(password_id);
+  const password_repeat = document.getElementById(password_id_repeat);
+
+  setFormValue(first_name_id, first_name.value, validateNotEmpty, sign_up);
+  setFormValue(last_name_id, last_name.value, validateNotEmpty, sign_up);
+  setFormValue(email_id, email.value, validateEmail, sign_up);
+  setFormValue(password_id, password.value, validatePassword, sign_up);
+  setFormValue(password_id_repeat, password_repeat.value, validatePasswordRepeat, sign_up);
+});
 
 // Получаем элемент DOM-дерева по id и присваиваем значение аттрибуту oninput
 // oninput вызывается с параметром "event" каждый раз, когда ввод меняется
 // Значение, которое мы присваеваем этому аттрибуту - это функция, определённая в стрелочном стиле
 // Гуглить по тегам "события JS", "onchange/oninput HTML", "стрелочные функции JS", ...
 
-// const first_name = document.getElementById(first_name_id);
-// first_name.oninput = (e) => setFormValue(first_name_id, e.target.value)  // Установить значение без валидации
+const first_name = document.getElementById(first_name_id);
+first_name.oninput = (e) => setFormValue(first_name_id, e.target.value, validateNotEmpty, sign_up);
 
-// const email = document.getElementById(email_id);
-// email.oninput = (e) => setFormValue(email_id, e.target.value, validateEmail) // Установить значение с валидацией
+const last_name = document.getElementById(last_name_id);
+last_name.oninput = (e) => setFormValue(last_name_id, e.target.value, validateNotEmpty, sign_up);
 
-// const password = document.getElementById(password_id);
-// password.oninput = (e) => setFormValue(password_id, e.target.value, validatePassword) //Установить значение пароля с валидацией
+const email = document.getElementById(email_id);
+email.oninput = (e) => setFormValue(email_id, e.target.value, validateEmail, sign_up); 
 
-const updateButtonState = () => {
-  const signUpButton = document.getElementById('sign_up_btn');
-  const signInButton = document.getElementById('sign_in_btn');
+const password = document.getElementById(password_id);
+password.oninput = (e) => {
+  setFormValue(password_id, e.target.value, validatePassword, sign_up);
+  setFormValue(password_id_repeat, password_repeat.value, validatePasswordRepeat, sign_up);
+}
 
-  const isFormValid = getValidationStatus();
-
-  signUpButton.disabled = !isFormValid;
-  signInButton.disabled = !isFormValid;
-
-};
-
-const signUpFields = ['email_sign_up', 'password_sign_up', 'password-repeat'];
-
-const signInFields = ['email_sign_in', 'password_sign_in'];
-
-const emailSelector = ".email";
-const passwordSelector = ".password";
-
-const emailInputs = document.querySelectorAll(emailSelector);
-const passwordInputs = document.querySelectorAll(passwordSelector);
-
-const updateValidationClasses = (elements, validator) => {
-  elements.forEach((element) => {
-    const isValid = validator(element.value);
-    if (isValid) {
-      element.classList.add('valid');
-      element.classList.remove('invalid');
-    } else {
-      element.classList.add('invalid');
-      element.classList.remove('valid');
-    }
-
-    //console.log(`Element: ${element.id}, Classes: ${element.className}`);
-  });
-};
-
-emailInputs.forEach((emailInput) => {
-  emailInput.oninput = () => {
-    setFormValue("email", emailInput.value, validateEmail);
-    updateValidationClasses(emailInputs, validateEmail);
-    updateButtonState(sign_up_form_id, sign_up_btn_id, signUpFields);
-    updateButtonState(sign_in_form_id, sign_in_btn_id, signInFields);
-  };
-});
-
-passwordInputs.forEach((passwordInput) => {
-  passwordInput.oninput = () => {
-    setFormValue("password", passwordInput.value, validatePassword);
-    updateValidationClasses(passwordInputs, validatePassword);
-    updateButtonState(sign_up_form_id, sign_up_btn_id, signUpFields);
-    updateButtonState(sign_in_form_id, sign_in_btn_id, signInFields);
-  };
-});
-
-const confirmPasswordInput = document.getElementById("password-repeat");
-confirmPasswordInput.oninput = () => {
-  const password = document.getElementById("password_sign_up").value;
-  const confirmPassword = confirmPasswordInput.value;
-
-  // Устанавливаем статус в formValidation
-  setFormValue("confirmPassword", confirmPassword, (value) =>
-    validatePasswordMatch(password, value)
-  );
-
-  // Обновляем стили для визуальной индикации
-  if (validatePasswordMatch(password, confirmPassword)) {
-    confirmPasswordInput.classList.add("valid");
-    confirmPasswordInput.classList.remove("invalid");
-  } else {
-    confirmPasswordInput.classList.add("invalid");
-    confirmPasswordInput.classList.remove("valid");
-  }
-
-  updateButtonState();
-};
-
+const password_repeat = document.getElementById(password_id_repeat);
+password_repeat.oninput = (e) => setFormValue(password_id_repeat, e.target.value, validatePasswordRepeat, sign_up);
 
 // Меняем стили объекта DOM дерева. Это позволяет скрыть форму регистрации и показать форму авторизации
 // Объект формы не исключается из DOM дерева, а просто становистя невидимым
@@ -151,11 +111,10 @@ switch_to_sign_up.onclick = (e) => {
 
 const sign_up_btn = document.getElementById(sign_up_btn_id);
 sign_up_btn.onclick = (e) => {
-  submitSignUpForm()
+  submitSignUpForm();
 }
 
 const sign_in_btn = document.getElementById(sign_in_btn_id);
 sign_in_btn.onclick = (e) => {
-
-  submitSignInForm()
+  submitSignInForm();
 }

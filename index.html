@@ -35,79 +35,75 @@
 
 <body>
 
-<div class="container">
-  <div class="form_container row" id="sign_up_form">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s6">
-          <input id="first_name" type="text" class="validate">
-          <label for="first_name">First Name</label>
+  <div class="container">
+    <div class="form_container row" id="sign_up_form">
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="first_name" type="text" class="validate">
+            <label for="first_name">First Name</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="last_name" type="text" class="validate">
+            <label for="last_name">Last Name</label>
+          </div>
         </div>
-        <div class="input-field col s6">
-          <input id="last_name" type="text" class="validate">
-          <label for="last_name">Last Name</label>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate">
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validation password">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password-repeat" type="password" class="validation password">
+            <label for="password-repeat">Repeat password</label>
+          </div>
+        </div>
+        <div class="row">
+          <button class="btn waves-effect waves-light col s4 offset-s4" type="submit" id="sign_up_btn" disabled>
+            Sign up
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+      <div class="row">
+        <div class="col s6"> Already registered? </div>
+        <div class="underlined_text col s5" id="sign_in_link"> Sign in! </div>
+      </div>
+    </div>
+    <div class="form_container row" id="sign_in_form" style="display: none"><form class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email-login" type="email" class="validate">
+          <label for="email-login">Email</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="email_sign_up" type="email" class="validate email">
-          <label for="email_sign_up">Email</label>
+          <input id="password-login" type="password" class="validation password">
+          <label for="password-login">Password</label>
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s12">
-          <input id="password_sign_up" type="password" class="validation password">
-          <label for="password_sign_up">Password</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="password-repeat" type="password" class="validation password">
-          <label for="password-repeat">Repeat password</label>
-        </div>
-      </div>
-      <div class="row">
-        <button class="btn waves-effect waves-light col s4 offset-s4" type="submit" id="sign_up_btn" disabled>
-          Sign up
-          <i class="material-icons right">send</i>
+        <button class="btn waves-effect waves-light col s4 offset-s4" type="submit" id="sign_in_btn" disabled>
+          Sign in
         </button>
       </div>
     </form>
-    <div class="row">
-      <div class="col s6"> Already registered? </div>
-      <div class="underlined_text col s5" id="sign_in_link"> Sign in! </div>
-    </div>
-  </div>
-  <div class="form_container row" id="sign_in_form" style="display: none"> 
-    <form class="col s12">
       <div class="row">
-        <div class="input-field col s12">
-          <input id="email_sign_in" type="email" class="validate email">
-          <label for="email_sign_in">Email</label>
-        </div>
+        <div class="col s6">Have no account?</div>
+        <div class="underlined_text col s5 switch_form" id="sign_up_link">Sign up!</div>
       </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="password_sign_in" type="password" class="validation password">
-          <label for="password_sign_in">Password</label>
-        </div>
-      </div>
-      <div class="row">
-    </form>
-    <div class="row">
-      <button class="btn waves-effect waves-light col s4 offset-s4" type="submit" id="sign_in_btn" disabled>
-        Sign in
-        <i class="material-icons right">send</i>
-      </button>
-    </div>
-    <div class="row">
-      <div class="col s6"> Irregistered? </div>
-      <div class="underlined_text col s5" id="sign_up_link"> Sign up! </div>
-    </div>
+    <script src="https://www.google-analytics.com/analytics.js" async></script>
+    <script type="module" src="js/main.js"></script>
   </div>
-  <script src="https://www.google-analytics.com/analytics.js" async></script>
-  <script type="module" src="js/main.js"></script>
-</div>
 </body>
 
 </html>
