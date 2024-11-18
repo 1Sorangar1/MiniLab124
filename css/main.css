@@ -259,4 +259,17 @@ textarea {
   h3 {
     page-break-after: avoid;
   }
+
+
+.input-field.invalid input {
+  border-bottom: 2px solid red;
+  box-shadow: 0 1px 0 0 red;
+}
+
+/* @media (max-width: 768px) {
+  .form_container {
+    width: 90%;
+    padding: 10%;
+  }
+} */
 }
